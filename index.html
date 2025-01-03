@@ -83,6 +83,23 @@
       width: 150px;
       height: 150px;
     }
+
+    .download-button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .download-button:hover {
+      background-color: #218838;
+    }
+
   </style>
 </head>
 <body>
@@ -90,26 +107,59 @@
     <div class="form-section">
       <h1>XKYRAGE | QR GENERATOR</h1>
       <input type="text" id="search" placeholder="Please enter your text or URL to generate QR Code" />
-      <button onclick="qrCodeGenerator()">Generate</button>
+      <!--<button onclick="qrCodeGenerator()">Generate</button>-->
+       <button id="generateButton">Generate</button>
     </div>
     <div class="image-section">
       <div class="qr-code">
         <img id="image" src="" alt="Generate to see QR" />
+         <button id="downloadButton" class="download-button">Download QR Code</button>
       </div>
     </div>
   </div>
 
   <script>
-    const searchText = document.getElementById('search');
+     const searchText = document.getElementById('search');
     const qrImage = document.getElementById('image');
+    const generateButton = document.getElementById('generateButton');
+    const downloadButton = document.getElementById('downloadButton');
+    let qrCodeBlobUrl = null;
 
-    function qrCodeGenerator() {
-      if (searchText.value.length > 0) {
-        qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${searchText.value}`;
+    // Add event listener to the generate button
+    generateButton.addEventListener('click', () => {
+      if (searchText.value.trim().length > 0) {
+        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${searchText.value}`;
+        qrImage.src = qrCodeUrl;
+        qrImage.style.display = "block"; // Show the QR code image
+
+        // Fetch the QR code and prepare it for download
+        qrImage.onload = () => {
+          fetch(qrCodeUrl)
+            .then(response => response.blob())
+            .then(blob => {
+              if (qrCodeBlobUrl) {
+                URL.revokeObjectURL(qrCodeBlobUrl); // Revoke previous blob URL to avoid memory leaks
+              }
+              qrCodeBlobUrl = URL.createObjectURL(blob);
+              downloadButton.style.display = "inline"; // Show the download button
+            })
+            .catch(error => console.error("Error generating QR code:", error));
+        };
       } else {
         alert("Please enter some text to generate a QR Code.");
       }
-    }
+    });
+
+    // Add event listener to the download button
+    downloadButton.addEventListener('click', () => {
+      if (qrCodeBlobUrl) {
+        const link = document.createElement("a");
+        link.href = qrCodeBlobUrl;
+        link.download = "qrcode.png"; // Set the file name
+        link.click();
+      }
+    });
+
   </script>
 </body>
 </html>
