@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap" rel="stylesheet">
-  <title>QRgen by Xkyrage</title>
+  <title>XKYRAGE QR Tools</title>
   <style>
     * {
       margin: 0;
@@ -15,31 +15,38 @@
     }
     body {
       font-family: "Oxanium", sans-serif;
-      background : url(background.png) center/cover no-repeat ;
+      background: url(background.png) center/cover no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      flex-direction: column;
     }
     .container {
-      width: 90%;
+      width: 95%;
       max-width: 1200px;
       background-color: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+      }
     }
     .form-section {
       flex: 1;
-      padding: 40px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
     .form-section h1 {
-      font-size: 24px;
+      font-size: 1.5rem;
       margin-bottom: 20px;
     }
     .form-section input[type="text"] {
@@ -67,23 +74,23 @@
       flex: 1;
       position: relative;
       background: url(backgroundright.png) center/cover no-repeat;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .qr-code {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       padding: 10px;
       background-color: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
     .qr-code img {
       width: 150px;
       height: 150px;
     }
-
     .download-button {
       margin-top: 10px;
       padding: 10px 20px;
@@ -95,75 +102,62 @@
       cursor: pointer;
       display: none;
     }
-
     .download-button:hover {
       background-color: #218838;
     }
-     /* footer */
     footer {
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: 52rem;
-    position: absolute;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 20px;
+      font-size: 0.9rem;
     }
-
-    footer .credit {
-    font-size: 1rem;
-    padding-bottom: 0rem;
-    }
-
     footer .credit a {
-    font-weight: 700;
+      font-weight: 700;
+      color: #325dc3;
     }
-
   </style>
 </head>
-  
 <body>
   <div class="container">
     <div class="form-section">
       <h1>QRgen | Simple QR Generator</h1>
       <input type="text" id="search" placeholder="Please enter your text or URL to generate QR Code" />
-      <!--<button onclick="qrCodeGenerator()">Generate</button>-->
-       <button id="generateButton">Generate</button>
+      <button id="generateButton">Generate</button>
     </div>
     <div class="image-section">
       <div class="qr-code">
         <img id="image" src="" alt="Generate to see QR" />
-         <button id="downloadButton" class="download-button">Download QR Code</button>
+        <button id="downloadButton" class="download-button">Download QR Code</button>
       </div>
     </div>
   </div>
-  
   <footer>
-      <div class="credit">
-        <p>Created by <a href="https://github.com/xkyrage" style="color: #325dc3;">Tegar Ibrahim</a> &copy; 2025</p>
-      </div>
-    </footer>
+    <div class="credit">
+      <p>Created by <a href="https://github.com/xkyrage">Tegar Ibrahim</a> &copy; 2025</p>
+    </div>
+  </footer>
   <script>
-     const searchText = document.getElementById('search');
+    const searchText = document.getElementById('search');
     const qrImage = document.getElementById('image');
     const generateButton = document.getElementById('generateButton');
     const downloadButton = document.getElementById('downloadButton');
     let qrCodeBlobUrl = null;
 
-    // Add event listener to the generate button
     generateButton.addEventListener('click', () => {
       if (searchText.value.trim().length > 0) {
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${searchText.value}`;
+        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(searchText.value)}`;
         qrImage.src = qrCodeUrl;
-        qrImage.style.display = "block"; // Show the QR code image
+        qrImage.style.display = "block";
 
-        // Fetch the QR code and prepare it for download
         qrImage.onload = () => {
           fetch(qrCodeUrl)
             .then(response => response.blob())
             .then(blob => {
               if (qrCodeBlobUrl) {
-                URL.revokeObjectURL(qrCodeBlobUrl); // Revoke previous blob URL to avoid memory leaks
+                URL.revokeObjectURL(qrCodeBlobUrl);
               }
               qrCodeBlobUrl = URL.createObjectURL(blob);
-              downloadButton.style.display = "inline"; // Show the download button
+              downloadButton.style.display = "inline";
             })
             .catch(error => console.error("Error generating QR code:", error));
         };
@@ -172,16 +166,14 @@
       }
     });
 
-    // Add event listener to the download button
     downloadButton.addEventListener('click', () => {
       if (qrCodeBlobUrl) {
         const link = document.createElement("a");
         link.href = qrCodeBlobUrl;
-        link.download = "qrcode.png"; // Set the file name
+        link.download = "qrcode.png";
         link.click();
       }
     });
-
   </script>
 </body>
 </html>
