@@ -16,3 +16,8 @@ Whether you're sharing a link, contact information, or promotional content, XKyr
 
 ![image](https://github.com/user-attachments/assets/a666ca49-9cd2-4cb4-ab5d-0cef319b8d08)
 ![image](https://github.com/user-attachments/assets/b158de90-3d6d-40b8-9c69-c6fdec12bc30)
+
+> New Version adding download Features for Generated QR
+
+![image](https://github.com/user-attachments/assets/da4b3d5c-ee4a-4f7c-98a1-b9e79c3b6e3d)
+![image](https://github.com/user-attachments/assets/1d6070a9-a106-43c3-8f52-ef8ec4ed9869)
