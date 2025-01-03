@@ -1,5 +1,5 @@
 # QRgen
-Introducing XKyrage's Simple QR Generator, a sleek and intuitive tool designed to make QR code generation effortless. Whether you're creating QR codes for personal use, marketing campaigns, or business needs, this tool delivers fast results in just a few clicks.
+Introducing Xkyrage's Simple QR Generator, a sleek and intuitive tool designed to make QR code generation effortless. Whether you're creating QR codes for personal use, marketing campaigns, or business needs, this tool delivers fast results in just a few clicks.
 
 > Try it Now by clicking this button below!
 
