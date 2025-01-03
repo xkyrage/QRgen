@@ -14,10 +14,18 @@ Introducing Xkyrage's Simple QR Generator, a sleek and intuitive tool designed t
 
 Whether you're sharing a link, contact information, or promotional content, XKyrage's QR Generator ensures your data is instantly scannable and visually appealing. Give it a try and transform your ideas into actionable QR codes.
 
-![image](https://github.com/user-attachments/assets/a666ca49-9cd2-4cb4-ab5d-0cef319b8d08)
-![image](https://github.com/user-attachments/assets/b158de90-3d6d-40b8-9c69-c6fdec12bc30)
+> First version testing some functionality
+
+![image](https://github.com/user-attachments/assets/82f12c81-e366-4464-a881-830e58b434b8)
+![image](https://github.com/user-attachments/assets/3f8758fd-fd85-422d-9f1e-9a50ff420ea2)
 
 > New Version adding download Features for Generated QR
 
-![image](https://github.com/user-attachments/assets/da4b3d5c-ee4a-4f7c-98a1-b9e79c3b6e3d)
-![image](https://github.com/user-attachments/assets/1d6070a9-a106-43c3-8f52-ef8ec4ed9869)
+![image](https://github.com/user-attachments/assets/12e78868-933b-495b-98f6-51bb51785240)
+![image](https://github.com/user-attachments/assets/213ed51c-d191-4a34-8985-8e52a5a9410e)
+
+> Responsiveness
+
+![image](https://github.com/user-attachments/assets/3830b310-bd47-4b6d-8ec7-7798a8e5e798)
+
+
