@@ -24,10 +24,10 @@ Whether you're sharing a link, contact information, or promotional content, XKyr
 ![image](https://github.com/user-attachments/assets/12e78868-933b-495b-98f6-51bb51785240)
 ![image](https://github.com/user-attachments/assets/213ed51c-d191-4a34-8985-8e52a5a9410e)
 
-https://go.dev/play/ <- QR Gen with Golang
-
 > Responsiveness
 
 ![image](https://github.com/user-attachments/assets/3830b310-bd47-4b6d-8ec7-7798a8e5e798)
+
+|https://go.dev/play/ <- QR Gen with Golang
 
 
