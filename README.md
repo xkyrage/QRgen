@@ -6,7 +6,7 @@ Introducing Xkyrage's Simple QR Generator, a sleek and intuitive tool designed t
 [![Sponsor on GitHub](https://dabuttonfactory.com/button.png?t=QRgen&f=Calibri-Bold&ts=28&tc=fff&hp=45&vp=20&w=1000&h=50&c=11&bgt=unicolored&bgc=33c0c0)](https://xkyrage.github.io/QRgen/)
 
 > Features:
-- You can now generate and download high-resolution QR codes at 1000x1000 pixels | perfect for printing, posters, and professional use. Just enter your text or URL, click Generate, and hit Download!
+- You can now generate and download high-resolution QR codes at 1000x1000 pixels, perfect for printing, posters, and professional use. Just enter your text or URL, click Generate, and hit Download!
 - Instant QR Code Creation: Generate a QR code by simply entering your desired text, URL, or data. No technical skills are required!
 - User-Friendly Interface: A clean and minimalistic design ensures seamless navigation for all users.
 - Real-Time Preview: See your QR code instantly appear as you type.
