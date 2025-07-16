@@ -89,8 +89,8 @@
       text-align: center;
     }
     .qr-code img {
-      width: 150px;
-      height: 150px;
+      width: 300px;
+      height: 300px;
     }
     .download-button {
       margin-top: 10px;
@@ -146,7 +146,7 @@
 
     generateButton.addEventListener('click', () => {
       if (searchText.value.trim().length > 0) {
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(searchText.value)}`;
+        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(searchText.value)}`;
         qrImage.src = qrCodeUrl;
         qrImage.style.display = "block";
 
