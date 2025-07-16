@@ -28,6 +28,10 @@ Whether you're sharing a link, contact information, or promotional content, XKyr
 
 ![image](https://github.com/user-attachments/assets/3830b310-bd47-4b6d-8ec7-7798a8e5e798)
 
+> New Version Generate HighRes QR Code | When click on download button, 1000x1000 Resolution QR Image will be downloaded
+<img width="1611" height="652" alt="image" src="https://github.com/user-attachments/assets/be5c6474-3e28-409e-809c-d214a0c789c3" />
+
+
 > [https://go.dev/play/](https://go.dev/play/p/EUijJdjjVqn) <- QR Gen with Golang
 
 
