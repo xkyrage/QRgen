@@ -28,6 +28,6 @@ Whether you're sharing a link, contact information, or promotional content, XKyr
 
 ![image](https://github.com/user-attachments/assets/3830b310-bd47-4b6d-8ec7-7798a8e5e798)
 
-> https://go.dev/play/ <- QR Gen with Golang
+> [https://go.dev/play/](https://go.dev/play/p/EUijJdjjVqn) <- QR Gen with Golang
 
 
