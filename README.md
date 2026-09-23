@@ -7,6 +7,7 @@ Introducing Xkyrage's Simple QR Generator, a sleek and intuitive tool designed t
 
 > Features:
 - You can now generate and download high-resolution QR codes at 1000x1000 pixels, Simply enter anything, text or URL, click Generate, and hit Download!
+- You can now genereate high-resolution QR codes from Base64
 - Instant QR Code Creation: Generate a QR code by simply entering your desired text, URL, or data. No technical skills are required!
 - User-Friendly Interface: A clean and minimalistic design ensures seamless navigation for all users.
 - Real-Time Preview: See your QR code instantly appear as you type.
