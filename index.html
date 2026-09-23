@@ -138,43 +138,52 @@
     </div>
   </footer>
   <script>
-    const searchText = document.getElementById('search');
-    const qrImage = document.getElementById('image');
-    const generateButton = document.getElementById('generateButton');
-    const downloadButton = document.getElementById('downloadButton');
-    let qrCodeBlobUrl = null;
+     const searchText = document.getElementById('search');
+        const qrImage = document.getElementById('image');
+        const generateButton = document.getElementById('generateButton');
+        const downloadButton = document.getElementById('downloadButton');
 
-    generateButton.addEventListener('click', () => {
-      if (searchText.value.trim().length > 0) {
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(searchText.value)}`;
-        qrImage.src = qrCodeUrl;
-        qrImage.style.display = "block";
+        let qrCodeDataUrl = null;
 
-        qrImage.onload = () => {
-          fetch(qrCodeUrl)
-            .then(response => response.blob())
-            .then(blob => {
-              if (qrCodeBlobUrl) {
-                URL.revokeObjectURL(qrCodeBlobUrl);
-              }
-              qrCodeBlobUrl = URL.createObjectURL(blob);
-              downloadButton.style.display = "inline";
-            })
-            .catch(error => console.error("Error generating QR code:", error));
-        };
-      } else {
-        alert("Please enter some text to generate a QR Code.");
-      }
-    });
+        /**
+         * Convert Base64 string to Data URL
+         */
+        function base64ToDataUrl(base64String) {
+            return `data:image/png;base64,${base64String}`;
+        }
 
-    downloadButton.addEventListener('click', () => {
-      if (qrCodeBlobUrl) {
-        const link = document.createElement("a");
-        link.href = qrCodeBlobUrl;
-        link.download = "qrcode.png";
-        link.click();
-      }
-    });
-  </script>
+        generateButton.addEventListener('click', () => {
+            const base64String = searchText.value.trim();
+
+            if (!base64String) {
+                alert('Please enter a Base64 string');
+                return;
+            }
+
+            try {
+                qrCodeDataUrl = base64ToDataUrl(base64String);
+
+                qrImage.src = qrCodeDataUrl;
+                qrImage.style.display = 'block';
+
+                downloadButton.style.display = 'inline-block';
+            } catch (error) {
+                console.error(error);
+                alert('Invalid Base64 image');
+            }
+        });
+
+        downloadButton.addEventListener('click', () => {
+            if (!qrCodeDataUrl) return;
+
+            const link = document.createElement('a');
+            link.href = qrCodeDataUrl;
+            link.download = 'qrcode.png';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
 </body>
 </html>
