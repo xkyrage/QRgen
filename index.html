@@ -138,43 +138,137 @@
     </div>
   </footer>
   <script>
-    const searchText = document.getElementById('search');
-    const qrImage = document.getElementById('image');
-    const generateButton = document.getElementById('generateButton');
-    const downloadButton = document.getElementById('downloadButton');
-    let qrCodeBlobUrl = null;
+  const searchText = document.getElementById('search');
+  const qrImage = document.getElementById('image');
+  const generateButton = document.getElementById('generateButton');
+  const downloadButton = document.getElementById('downloadButton');
 
-    generateButton.addEventListener('click', () => {
-      if (searchText.value.trim().length > 0) {
-        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(searchText.value)}`;
-        qrImage.src = qrCodeUrl;
-        qrImage.style.display = "block";
+  let qrCodeBlobUrl = null;
 
-        qrImage.onload = () => {
-          fetch(qrCodeUrl)
-            .then(response => response.blob())
-            .then(blob => {
-              if (qrCodeBlobUrl) {
-                URL.revokeObjectURL(qrCodeBlobUrl);
-              }
-              qrCodeBlobUrl = URL.createObjectURL(blob);
-              downloadButton.style.display = "inline";
-            })
-            .catch(error => console.error("Error generating QR code:", error));
-        };
-      } else {
-        alert("Please enter some text to generate a QR Code.");
+  function base64ToBlob(base64, mimeType = 'image/png') {
+ 
+    const base64Data = base64.replace(
+      /^data:image\/[a-zA-Z0-9.+-]+;base64,/,
+      ''
+    );
+
+    try {
+      const byteCharacters = atob(base64Data);
+      const byteArrays = [];
+      const chunkSize = 1024;
+
+      for (let offset = 0; offset < byteCharacters.length; offset += chunkSize) {
+        const slice = byteCharacters.slice(offset, offset + chunkSize);
+        const byteNumbers = new Array(slice.length);
+
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        byteArrays.push(new Uint8Array(byteNumbers));
       }
-    });
 
-    downloadButton.addEventListener('click', () => {
-      if (qrCodeBlobUrl) {
-        const link = document.createElement("a");
-        link.href = qrCodeBlobUrl;
-        link.download = "qrcode.png";
-        link.click();
+      return new Blob(byteArrays, {
+        type: mimeType
+      });
+
+    } catch (error) {
+      throw new Error('Invalid Base64 data');
+    }
+  }
+
+  function isBase64Image(value) {
+    return (
+      value.startsWith('data:image/') ||
+      (/^[A-Za-z0-9+/=\s]+$/.test(value) && value.length > 100)
+    );
+  }
+
+  generateButton.addEventListener('click', async () => {
+    const input = searchText.value.trim();
+
+    if (!input) {
+      alert('Please enter text or Base64 image data.');
+      return;
+    }
+
+
+    if (qrCodeBlobUrl) {
+      URL.revokeObjectURL(qrCodeBlobUrl);
+      qrCodeBlobUrl = null;
+    }
+
+   
+    if (isBase64Image(input)) {
+      try {
+        const blob = base64ToBlob(input, 'image/png');
+
+        qrCodeBlobUrl = URL.createObjectURL(blob);
+
+        // Show image
+        qrImage.src = qrCodeBlobUrl;
+        qrImage.style.display = 'block';
+
+        // Show download button
+        downloadButton.style.display = 'inline';
+
+      } catch (error) {
+        console.error(error);
+        alert('Invalid Base64 image data.');
       }
-    });
-  </script>
+
+      return;
+    }
+
+
+    const qrCodeUrl =
+      `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(input)}`;
+
+    try {
+      const response = await fetch(qrCodeUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const blob = await response.blob();
+
+      qrCodeBlobUrl = URL.createObjectURL(blob);
+
+      qrImage.src = qrCodeBlobUrl;
+      qrImage.style.display = 'block';
+
+      downloadButton.style.display = 'inline';
+
+    } catch (error) {
+      console.error('Error generating QR code:', error);
+      alert('Failed to generate QR code.');
+    }
+  });
+
+
+  downloadButton.addEventListener('click', () => {
+    if (!qrCodeBlobUrl) {
+      alert('No image available.');
+      return;
+    }
+
+    const link = document.createElement('a');
+
+    link.href = qrCodeBlobUrl;
+    link.download = 'qrcode.png';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+
+  // Cleanup
+  window.addEventListener('beforeunload', () => {
+    if (qrCodeBlobUrl) {
+      URL.revokeObjectURL(qrCodeBlobUrl);
+    }
+  });
+</script>
 </body>
 </html>
